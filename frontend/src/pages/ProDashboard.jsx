@@ -272,7 +272,7 @@ export default function ProDashboard() {
       {/* NAVBAR */}
       <nav style={styles.navbar}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span style={styles.logo} onClick={() => navigate('/')}>Réservio</span>
+          <span style={styles.logo} onClick={() => navigate('/')}>Prestatio</span>
           <span style={styles.proBadge}>PRO</span>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
