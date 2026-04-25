@@ -11,6 +11,12 @@ const appointmentRoutes = require('./routes/appointments');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const serviceRoutes = require('./routes/services');
+app.use('/api/sheet', serviceRoutes);
+
+const reviewRoutes = require('./routes/reviews');
+app.use('/api/reviews', reviewRoutes);
+
 app.use(cors());
 app.use(express.json());
 
