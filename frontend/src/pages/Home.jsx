@@ -80,9 +80,12 @@ export default function Home() {
             <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14 }}>Rayon :</span>
             {[5, 10, 20, 50].map(r => (
               <button key={r}
-                style={{ padding: '5px 14px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: 13,
+                style={{
+                  padding: '5px 14px', borderRadius: 20, border: 'none', cursor: 'pointer',
+                  fontWeight: 600, fontSize: 13,
                   background: radius === r ? 'white' : 'rgba(255,255,255,0.2)',
-                  color: radius === r ? '#1a3c5e' : 'white' }}
+                  color: radius === r ? '#1a3c5e' : 'white'
+                }}
                 onClick={() => { setRadius(r); fetchPros(userLocation?.lat, userLocation?.lng); }}
               >{r} km</button>
             ))}
