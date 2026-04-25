@@ -1,11 +1,12 @@
 const Brevo = require('@getbrevo/brevo');
 require('dotenv').config();
 
-const client = Brevo.ApiClient.instance;
-const apiKey = client.authentications['api-key'];
-apiKey.apiKey = process.env.BREVO_API_KEY;
-
 const emailApi = new Brevo.TransactionalEmailsApi();
+
+emailApi.setApiKey(
+  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
 // Email de confirmation RDV au client
 const sendConfirmationToClient = async ({ clientName, clientEmail, proName, date, time, address }) => {
