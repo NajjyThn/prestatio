@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <div style={{ background: '#f4f7fb', minHeight: '100vh' }}>
       <div style={{ background: 'linear-gradient(135deg, #1a3c5e, #0ea5e9)', padding: '48px 24px', textAlign: 'center' }}>
-        <h1 style={{ color: 'white', fontSize: 36, marginBottom: 8 }}>Réservio</h1>
+        <h1 style={{ color: 'white', fontSize: 36, marginBottom: 8 }}>Prestatio</h1>
         <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: 28 }}>Trouvez un professionnel près de chez vous</p>
 
         <div style={{ display: 'flex', gap: 10, maxWidth: 700, margin: '0 auto', flexWrap: 'wrap', justifyContent: 'center' }}>

@@ -53,7 +53,7 @@ export default function Dashboard() {
   return (
     <div style={{ background: '#f4f7fb', minHeight: '100vh' }}>
       <nav style={styles.navbar}>
-        <span style={styles.logo} onClick={() => navigate('/')}>Réservio</span>
+        <span style={styles.logo} onClick={() => navigate('/')}>Prestatio</span>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <span style={{ fontSize: 14, color: '#64748b' }}>👤 {user?.name}</span>
           <button style={styles.logoutBtn} onClick={() => { logout(); navigate('/'); }}>

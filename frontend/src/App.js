@@ -5,11 +5,20 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import Professional from './pages/Professional';
 import Dashboard from './pages/Dashboard';
+import ProDashboard from './pages/ProDashboard';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  if (loading) return <div>Chargement...</div>;
+  if (loading) return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontSize: 16, color: '#64748b' }}>Chargement...</div>;
   return user ? children : <Navigate to="/login" />;
+};
+
+const ProRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  if (loading) return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontSize: 16, color: '#64748b' }}>Chargement...</div>;
+  if (!user) return <Navigate to="/login" />;
+  if (user.role !== 'professional') return <Navigate to="/dashboard" />;
+  return children;
 };
 
 function AppRoutes() {
@@ -21,6 +30,9 @@ function AppRoutes() {
       <Route path="/professional/:id" element={<Professional />} />
       <Route path="/dashboard" element={
         <PrivateRoute><Dashboard /></PrivateRoute>
+      } />
+      <Route path="/pro" element={
+        <ProRoute><ProDashboard /></ProRoute>
       } />
     </Routes>
   );

@@ -95,7 +95,7 @@ export default function Professional() {
 
       {/* Navbar */}
       <nav style={styles.navbar}>
-        <span style={styles.logo} onClick={() => navigate('/')}>← Réservio</span>
+        <span style={styles.logo} onClick={() => navigate('/')}>← Préstatio</span>
         {user
           ? <span style={{ fontSize: 14, color: '#64748b' }}>👤 {user.name}</span>
           : <button style={styles.navBtn} onClick={() => navigate('/login')}>Connexion</button>
