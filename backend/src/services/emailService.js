@@ -1,15 +1,25 @@
 const Brevo = require('@getbrevo/brevo');
 require('dotenv').config();
 
+// ===== CONFIG BREVO PROPRE =====
 const emailApi = new Brevo.TransactionalEmailsApi();
 
 emailApi.setApiKey(
-  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  'api-key',
   process.env.BREVO_API_KEY
 );
 
-// Email de confirmation RDV au client
-const sendConfirmationToClient = async ({ clientName, clientEmail, proName, date, time, address }) => {
+// ===============================
+// EMAIL CLIENT - CONFIRMATION RDV
+// ===============================
+const sendConfirmationToClient = async ({
+  clientName,
+  clientEmail,
+  proName,
+  date,
+  time,
+  address
+}) => {
   try {
     await emailApi.sendTransacEmail({
       sender: {
@@ -23,42 +33,40 @@ const sendConfirmationToClient = async ({ clientName, clientEmail, proName, date
           <div style="background: linear-gradient(135deg, #1a3c5e, #0ea5e9); padding: 24px; border-radius: 12px; text-align: center; margin-bottom: 24px;">
             <h1 style="color: white; margin: 0; font-size: 24px;">Réservio</h1>
           </div>
-          <div style="background: white; padding: 28px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-            <h2 style="color: #1a3c5e; margin-bottom: 8px;">Rendez-vous confirmé ✅</h2>
-            <p style="color: #64748b; margin-bottom: 24px;">Bonjour <strong>${clientName}</strong>, votre rendez-vous est bien enregistré.</p>
-            <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 16px; margin-bottom: 24px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span style="color: #64748b; font-size: 14px;">Professionnel</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${proName}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span style="color: #64748b; font-size: 14px;">Date</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${date}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span style="color: #64748b; font-size: 14px;">Heure</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${time}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between;">
-                <span style="color: #64748b; font-size: 14px;">Lieu</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${address}</span>
-              </div>
-            </div>
-            <p style="color: #94a3b8; font-size: 13px; text-align: center;">
-              Pour annuler, connectez-vous sur <a href="http://localhost:3000/dashboard" style="color: #0ea5e9;">votre espace</a>.
+
+          <div style="background: white; padding: 28px; border-radius: 12px;">
+            <h2 style="color: #1a3c5e;">Rendez-vous confirmé ✅</h2>
+
+            <p style="color: #64748b;">
+              Bonjour <strong>${clientName}</strong>, votre rendez-vous est bien enregistré.
             </p>
+
+            <p><strong>Professionnel :</strong> ${proName}</p>
+            <p><strong>Date :</strong> ${date}</p>
+            <p><strong>Heure :</strong> ${time}</p>
+            <p><strong>Lieu :</strong> ${address}</p>
           </div>
         </div>
       `
     });
-    console.log(`Email confirmation envoyé à ${clientEmail}`);
+
+    console.log(`Email client envoyé à ${clientEmail}`);
   } catch (err) {
-    console.error('Erreur envoi email client :', err.message);
+    console.error('Erreur email client :', err.message);
   }
 };
 
-// Email de notification au professionnel
-const sendNotificationToPro = async ({ proName, proEmail, clientName, date, time, reason }) => {
+// ===============================
+// EMAIL PRO - NOTIFICATION RDV
+// ===============================
+const sendNotificationToPro = async ({
+  proName,
+  proEmail,
+  clientName,
+  date,
+  time,
+  reason
+}) => {
   try {
     await emailApi.sendTransacEmail({
       sender: {
@@ -68,47 +76,33 @@ const sendNotificationToPro = async ({ proName, proEmail, clientName, date, time
       to: [{ email: proEmail, name: proName }],
       subject: `Nouveau rendez-vous avec ${clientName}`,
       htmlContent: `
-        <div style="font-family: sans-serif; max-width: 520px; margin: 0 auto; padding: 32px; background: #f4f7fb; border-radius: 16px;">
-          <div style="background: linear-gradient(135deg, #1a3c5e, #0ea5e9); padding: 24px; border-radius: 12px; text-align: center; margin-bottom: 24px;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">Réservio</h1>
-          </div>
-          <div style="background: white; padding: 28px; border-radius: 12px;">
-            <h2 style="color: #1a3c5e; margin-bottom: 8px;">Nouveau rendez-vous 📅</h2>
-            <p style="color: #64748b; margin-bottom: 24px;">Bonjour <strong>${proName}</strong>, vous avez un nouveau rendez-vous.</p>
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-bottom: 24px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span style="color: #64748b; font-size: 14px;">Client</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${clientName}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span style="color: #64748b; font-size: 14px;">Date</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${date}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span style="color: #64748b; font-size: 14px;">Heure</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${time}</span>
-              </div>
-              ${reason ? `
-              <div style="display: flex; justify-content: space-between;">
-                <span style="color: #64748b; font-size: 14px;">Motif</span>
-                <span style="font-weight: 700; color: #1a3c5e; font-size: 14px;">${reason}</span>
-              </div>` : ''}
-            </div>
-            <p style="color: #94a3b8; font-size: 13px; text-align: center;">
-              Gérez vos RDV sur <a href="http://localhost:3000/dashboard" style="color: #0ea5e9;">votre espace professionnel</a>.
-            </p>
-          </div>
+        <div style="font-family: sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+          <h2 style="color: #1a3c5e;">Nouveau rendez-vous 📅</h2>
+
+          <p>Client : <strong>${clientName}</strong></p>
+          <p>Date : <strong>${date}</strong></p>
+          <p>Heure : <strong>${time}</strong></p>
+          ${reason ? `<p>Motif : <strong>${reason}</strong></p>` : ''}
         </div>
       `
     });
-    console.log(`Email notification envoyé à ${proEmail}`);
+
+    console.log(`Email pro envoyé à ${proEmail}`);
   } catch (err) {
-    console.error('Erreur envoi email pro :', err.message);
+    console.error('Erreur email pro :', err.message);
   }
 };
 
-// Email d'annulation
-const sendCancellationEmail = async ({ recipientName, recipientEmail, otherName, date, time }) => {
+// ===============================
+// EMAIL ANNULATION
+// ===============================
+const sendCancellationEmail = async ({
+  recipientName,
+  recipientEmail,
+  otherName,
+  date,
+  time
+}) => {
   try {
     await emailApi.sendTransacEmail({
       sender: {
@@ -119,20 +113,32 @@ const sendCancellationEmail = async ({ recipientName, recipientEmail, otherName,
       subject: `Rendez-vous annulé`,
       htmlContent: `
         <div style="font-family: sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
-          <h2 style="color: #1a3c5e;">Rendez-vous annulé</h2>
-          <p style="color: #64748b;">Bonjour <strong>${recipientName}</strong>,</p>
-          <p style="color: #64748b;">Votre rendez-vous avec <strong>${otherName}</strong> prévu le <strong>${date} à ${time}</strong> a été annulé.</p>
-          <a href="http://localhost:3000" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: #0ea5e9; color: white; border-radius: 8px; text-decoration: none; font-weight: 700;">
+          <h2>Rendez-vous annulé</h2>
+
+          <p>Bonjour <strong>${recipientName}</strong></p>
+
+          <p>
+            Votre rendez-vous avec <strong>${otherName}</strong>
+            prévu le <strong>${date} à ${time}</strong> a été annulé.
+          </p>
+
+          <a href="http://localhost:3000"
+             style="display:inline-block;margin-top:20px;padding:12px 24px;background:#0ea5e9;color:white;text-decoration:none;border-radius:8px;">
             Reprendre un rendez-vous
           </a>
         </div>
       `
     });
+
+    console.log(`Email annulation envoyé à ${recipientEmail}`);
   } catch (err) {
-    console.error('Erreur envoi email annulation :', err.message);
+    console.error('Erreur email annulation :', err.message);
   }
 };
 
+// ===============================
+// EXPORTS
+// ===============================
 module.exports = {
   sendConfirmationToClient,
   sendNotificationToPro,
