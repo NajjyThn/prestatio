@@ -82,7 +82,8 @@ export default function Home() {
       <nav style={S.navbar}>
         <div style={S.navLogo}>Presta<span style={{ color: '#e8648c' }}>&</span>You</div>
         <div style={S.navLinks}>
-          {['Accueil', 'Professionnelles', 'Prestations', 'À propos', 'Blog'].map((l, i) => (
+          {/*'Accueil', 'Professionnelles', 'Prestations', 'À propos', 'Blog'*/}
+          {[''].map((l, i) => (
             <span key={l} className="nav-link" style={{ ...S.navLink, color: i === 0 ? '#e8648c' : '#1a1a1a', borderBottom: i === 0 ? '2px solid #e8648c' : 'none', paddingBottom: 2 }}>{l}</span>
           ))}
         </div>
@@ -125,14 +126,11 @@ export default function Home() {
         </div>
         <div style={S.heroRight}>
           <div style={S.heroImgPlaceholder}>
-            <div style={S.heroImgInner}>
-              <div style={{ fontSize: 80 }}>💄</div>
-              <div style={{ fontSize: 24, color: '#e8648c', fontWeight: 600, marginTop: 8 }}>Beauté & Élégance</div>
-            </div>
+              <div style={{  width: "100%", height: 600, backgroundImage: "url('/images/planner.png')", backgroundSize: "contain",backgroundPosition: "center",backgroundRepeat: "no-repeat", }}></div>
           </div>
         </div>
       </div>
-
+ 
       {/* BARRE DE RECHERCHE */}
       <div style={S.searchWrapper}>
         <div style={S.searchBar}>
@@ -301,7 +299,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer style={S.footer}>
         <div style={S.footerLogo}>Presta<span style={{ color: '#e8648c' }}>&</span>You</div>
-        <div style={S.footerSub}>Prestation sur rendez-vous !</div>
+        <div style={S.footerSub}> sur rendez-vous</div>
         <div style={S.footerLinks}>
           {['Mentions légales', 'CGU', 'Contact', 'FAQ'].map(l => (
             <span key={l} style={S.footerLink}>{l}</span>

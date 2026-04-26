@@ -93,9 +93,9 @@ export default function Login() {
             <button style={S.socialBtn}>
               <span style={{ fontSize: 18 }}>G</span> Google
             </button>
-            <button style={S.socialBtn}>
+            {/*<button style={S.socialBtn}>
               <span style={{ fontSize: 18 }}>🍎</span> Apple
-            </button>
+            </button>*/}
           </div>
 
           <p style={S.terms}>

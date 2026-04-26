@@ -89,7 +89,7 @@ export default function Dashboard() {
       {/* SIDEBAR */}
       <div style={S.sidebar}>
         <div style={S.sidebarLogo}>Presta<span style={{ color: '#e8648c' }}>&</span>You</div>
-        <div style={S.sidebarTagline}>Beauté sur rendez-vous</div>
+        <div style={S.sidebarTagline}>Prestation sur rendez-vous</div>
         <nav style={S.sidebarNav}>
           {navItems.map(item => (
             <button key={item.label} className="nav-item"
