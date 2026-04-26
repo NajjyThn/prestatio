@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Professional from './pages/Professional';
 import Dashboard from './pages/Dashboard';
 import ProDashboard from './pages/ProDashboard';
+import AuthCallback from './pages/AuthCallback';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -34,6 +35,7 @@ function AppRoutes() {
       <Route path="/pro" element={
         <ProRoute><ProDashboard /></ProRoute>
       } />
+      <Route path="/auth/callback" element={<AuthCallback />} />
     </Routes>
   );
 }
